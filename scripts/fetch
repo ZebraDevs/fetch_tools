@@ -1,0 +1,73 @@
+#!/usr/bin/python
+# PYTHON_ARGCOMPLETE_OK
+"""
+fetch is a tool for performing common operations with Fetch and Freight.
+
+Copyright 2015 Fetch Robotics Inc.
+Author: Alex Henning
+"""
+
+import argcomplete
+import argparse
+import os
+import re
+import sys
+
+from fetch_tools.commands import run, sync, create_account, lint
+
+commands = [
+    create_account,
+    sync,
+    run,
+    lint,
+]
+
+root = argparse.ArgumentParser(description="Fetch Tool")
+
+command_parser = root.add_subparsers(
+    title="Call `fetch COMMAND -h` for help on each command listed below",
+    dest="command",
+    metavar="COMMAND",
+)
+command_parser.required = True
+
+for command in commands:
+    parser = command_parser.add_parser(command.name, help=command.help_text)
+    command.add_arguments(parser)
+    parser.set_defaults(main=command.main)
+
+argcomplete.autocomplete(root)
+args = root.parse_args()
+
+# Load custom default values for some variables
+
+# If user isn't specified, default to $FETCH_USER if set. Else, use $USER
+if "user" in args and args.user is None:
+    args.user = os.getenv("FETCH_USER")
+    if args.user is None:
+        args.user = os.getenv("USER")
+
+# If robot isn't specified, default to $FETCH_ROBOT if set.  Else,
+# infer from $ROS_MASTER_URI
+if "robot" in args and args.robot is None:
+    args.robot = os.getenv("FETCH_ROBOT")
+    if args.robot is None:
+        args.robot = re.findall("//(.*?):", os.getenv("ROS_MASTER_URI"))[0]
+        if args.robot == "localhost":
+            print("ERROR: Must specify robot with --robot ROBOT or set "
+                  "$ROS_MASTER_URI to point at the desired robot.")
+            sys.exit(1)
+
+# If workspace isn't specified, default to $FETCH_WORKSPACE if
+# set. Else, infer from $HOME and $ROS_DISTRO.
+if "workspace" in args and args.workspace is None:
+    args.workspace = os.getenv("FETCH_WORKSPACE")
+    if args.workspace is None:
+        args.workspace = os.getenv("HOME")+"/"+os.getenv("ROS_DISTRO")
+    if args.workspace.endswith("/"):
+        args.workspace = args.workspace[:-1]
+if "workspace" in args:
+    args.relative_workspace = args.workspace.replace(os.getenv("HOME"), "~")
+
+# Run the command
+args.main(args)
