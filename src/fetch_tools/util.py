@@ -9,18 +9,24 @@ from argcomplete.completers import ChoicesCompleter
 import subprocess
 
 
-def ssh(user, host, command, password=None):
+def ssh(user, host, command, password=None, fname=None):
     "Run the command on the remote host as the given user."
-    if password is None:
-        proc = subprocess.Popen(["ssh", "-t", user + "@" + host, command])
-        proc.wait()
-        return proc.returncode
-    else:
-        proc = subprocess.Popen(["sshpass", "-e",
-                                 "ssh", "-t", user + "@" + host, command],
-                                env={"SSHPASS": password})
-        proc.wait()
-        return proc.returncode
+
+    userhost = user + "@" + host
+    ssh_command = ["ssh", "-t", userhost, command]
+
+    e_vars = None
+    if password:
+        ssh_command = ["sshpass", "-e"] + ssh_command
+        e_vars = {"SSHPASS": password}
+
+    pipe = open(fname + ".txt", 'w') if fname else None
+
+    proc = subprocess.Popen(ssh_command, env=e_vars, stdout=pipe, stderr=pipe)
+    proc.wait()
+    if fname:
+        pipe.close()
+    return proc.returncode
 
 
 # Arguments
