@@ -59,6 +59,10 @@ if "robot" in args and args.robot is None:
             print("ERROR: Must specify robot with --robot ROBOT or set "
                   "$ROS_MASTER_URI to point at the desired robot.")
             sys.exit(1)
+if "robot" in args and args.robot in [None, ""]:
+    print("ERROR: Must specify robot with --robot ROBOT or set "
+          "$ROS_MASTER_URI to point at the desired robot.")
+    sys.exit(1)
 
 # If workspace isn't specified, default to $FETCH_WORKSPACE if
 # set. Else, infer from $HOME and $ROS_DISTRO.
