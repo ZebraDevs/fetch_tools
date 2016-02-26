@@ -13,13 +13,14 @@ import os
 import re
 import sys
 
-from fetch_tools.commands import run, sync, create_account, lint
+from fetch_tools.commands import run, sync, create_account, lint, workspace_status
 
 commands = [
     create_account,
     sync,
     run,
     lint,
+    workspace_status
 ]
 
 root = argparse.ArgumentParser(description="Fetch Tool")
