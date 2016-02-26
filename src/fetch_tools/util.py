@@ -36,8 +36,16 @@ def run(command):
 
 
 # Arguments
-robots = ["freight" + str(i) for i in range(9)] + \
-         ["fetch" + str(i) for i in range(7)]
+def RobotCompleter(prefix, **kwargs):
+    options = []
+    if "fetch".startswith(prefix) and prefix != "fetch":
+        options.extend("fetch" + str(i) for i in range(10))
+    if "freight".startswith(prefix) and prefix != "freight":
+        options.extend("freight" + str(i) for i in range(10))
+    if options:
+        return options
+    return (prefix + str(i) for i in range(10))
+
 users = subprocess.check_output(["awk", "-F:", "{ print $1}", "/etc/passwd"]) \
                   .split()
 
@@ -50,7 +58,7 @@ def add_user(parser):
 
 def add_robot(parser):
     arg = parser.add_argument("--robot", action="store", help="Robot to use")
-    arg.completer = ChoicesCompleter(robots)
+    arg.completer = RobotCompleter
 
 
 def add_workspace(parser):
