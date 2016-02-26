@@ -1,6 +1,6 @@
 """
-The sync command synchronizes a local workspace with the
-corresponding workspace on a remote robot.
+The push command pushes the local workspace to the
+remote workspace, making it identical to the current workspace.
 
 Copyright 2015 Fetch Robotics Inc.
 Author: Alex Henning
@@ -12,12 +12,12 @@ import sys
 
 from ..util import ssh, add_user, add_robot, add_workspace
 
-name = "sync"
-help_text = "Synchronize workspace"
+name = "push"
+help_text = "Push the workspace to the robot"
 
 
 def main(args):
-    print "Syncing %s/src to %s@%s:%s/src" % (
+    print "Pushing %s/src to %s@%s:%s/src" % (
         args.workspace, args.user, args.robot, args.relative_workspace
     )
 
@@ -39,12 +39,18 @@ def main(args):
 
     # Use rosdep to install all dependencies
     if args.install_deps:
-        ssh(args.user, args.robot, "rosdep update && rosdep install -r -y -a")
+        ssh(args.user, args.robot,
+            "cd "+args.relative_workspace+" && "
+            "source devel/setup.bash && "
+            "rosdep update && "
+            "rosdep install --from-paths src --ignore-src -y")
 
     # Run the build commands
     if args.build is not None:
         for build in args.build:
             build = build if build is not None else ""
+            if not args.no_debug:
+                build += " -DCMAKE_BUILD_TYPE=Debug"
             command = "source /opt/ros/" + os.getenv("ROS_DISTRO") + \
                       "/setup.bash && cd " + args.relative_workspace + \
                       " && catkin_make " + build
@@ -61,3 +67,5 @@ def add_arguments(parser):
                         help="Install dependencies using rosdep")
     parser.add_argument("--build", nargs="?", action="append",
                         help="Build after syncing")
+    parser.add_argument("--no-debug", action="store_true",
+                        help="Don't build with `-DCMAKE_BUILD_TYPE=Debug`")
