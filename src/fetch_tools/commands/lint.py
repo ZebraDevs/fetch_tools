@@ -109,6 +109,7 @@ def pep8(files):
         "W0142",  # ** arguments are ok. Just a little "magic".
         "R0913",  # Allow for more than 4 arguments to _init__.
         "R0903",  # Allow classes to have one or two public methods.
+        "E266",   # Allow comments to start with "## " for doxygen
     ]
     if files:
         proc = subprocess.Popen([
