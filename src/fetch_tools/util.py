@@ -29,6 +29,12 @@ def ssh(user, host, command, password=None, fname=None):
     return proc.returncode
 
 
+def run(command):
+    proc = subprocess.Popen(["bash", "-c", command])
+    proc.wait()
+    return proc.returncode
+
+
 # Arguments
 robots = ["freight" + str(i) for i in range(9)] + \
          ["fetch" + str(i) for i in range(7)]

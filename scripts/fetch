@@ -13,11 +13,12 @@ import os
 import re
 import sys
 
-from fetch_tools.commands import run, push, create_account, lint, workspace_status, debug_snapshot
+from fetch_tools.commands import run, push, pull, create_account, lint, workspace_status, debug_snapshot
 
 commands = [
     create_account,
     push,
+    pull,
     run,
     lint,
     workspace_status,
