@@ -7,7 +7,7 @@ Author: Alex Henning
 
 import sys
 
-from ..util import ssh, add_user, add_robot
+from ..util import ssh, add_user, add_robot, add_workspace
 
 name = "run"
 help_text = "Run a command on the robot"
@@ -15,7 +15,8 @@ help_text = "Run a command on the robot"
 
 def main(args):
     print "%s@%s$ %s" % (args.user, args.robot, args.command)
-    if ssh(args.user, args.robot, args.command) != 0:
+    if ssh(args.user, args.robot,
+           "source "+args.remote_workspace+"/devel/setup.bash && "+args.command) != 0:
         print "ERROR: Command crashed"
         sys.exit(-1)
 
@@ -23,5 +24,6 @@ def main(args):
 def add_arguments(parser):
     add_user(parser)
     add_robot(parser)
+    add_workspace(parser)
     parser.add_argument("command", action="store", default="bash",
                         help="Command and args to run remotely")
