@@ -18,7 +18,7 @@ help_text = "Push the workspace to the robot"
 
 def main(args):
     print "Pushing %s/src to %s@%s:%s/src" % (
-        args.workspace, args.user, args.robot, args.relative_workspace
+        args.workspace, args.user, args.robot, args.remote_workspace
     )
 
     # Synchronize the workspaces
@@ -26,11 +26,11 @@ def main(args):
         ["rsync",
          # Following line is a trick to magically create the directory
          # if it doesn't exist.
-         "--rsync-path", "mkdir -p " + args.relative_workspace + " && rsync",
+         "--rsync-path", "mkdir -p " + args.remote_workspace + " && rsync",
          "-phErtz",
          "--delete",
          args.workspace + "/src",
-         args.user + "@" + args.robot + ":" + args.relative_workspace + "/"]
+         args.user + "@" + args.robot + ":" + args.remote_workspace + "/"]
     )
     proc.wait()
     if proc.returncode != 0:
@@ -40,7 +40,7 @@ def main(args):
     # Use rosdep to install all dependencies
     if args.install_deps:
         ssh(args.user, args.robot,
-            "cd "+args.relative_workspace+" && "
+            "cd "+args.remote_workspace+" && "
             "source devel/setup.bash && "
             "rosdep update && "
             "rosdep install --from-paths src --ignore-src -y")
@@ -52,7 +52,7 @@ def main(args):
             if not args.no_debug:
                 build += " -DCMAKE_BUILD_TYPE=Debug"
             command = "source /opt/ros/" + os.getenv("ROS_DISTRO") + \
-                      "/setup.bash && cd " + args.relative_workspace + \
+                      "/setup.bash && cd " + args.remote_workspace + \
                       " && catkin_make " + build
             if ssh(args.user, args.robot, command) != 0:
                 print "ERROR: Build failed"

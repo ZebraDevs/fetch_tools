@@ -49,4 +49,6 @@ def add_robot(parser):
 
 def add_workspace(parser):
     parser.add_argument("--workspace", action="store",
-                        help="Catkin worspace to use")
+                        help="Catkin workspace to use")
+    parser.add_argument("--remote-workspace", action="store",
+                        help="Catkin workspace to use on the robot")

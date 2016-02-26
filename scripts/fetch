@@ -72,8 +72,12 @@ if "workspace" in args and args.workspace is None:
         args.workspace = os.getenv("HOME")+"/"+os.getenv("ROS_DISTRO")
     if args.workspace.endswith("/"):
         args.workspace = args.workspace[:-1]
-if "workspace" in args:
-    args.relative_workspace = args.workspace.replace(os.getenv("HOME"), "~")
+if "remote_workspace" in args and args.remote_workspace is None:
+    args.remote_workspace = os.getenv("FETCH_REMOTE_WORKSPACE")
+    if args.remote_workspace is None and args.workspace is not None:
+        args.remote_workspace = args.workspace.replace(os.getenv("HOME"), "~")
+    if args.remote_workspace.endswith("/"):
+        args.workspace = args.remote_workspace[:-1]
 
 # Run the command
 args.main(args)

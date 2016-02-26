@@ -24,10 +24,10 @@ sudo usermod -G adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare %(user)s
 """  # noqa
 
 setup_user_script = """
-export FETCH_WORKSPACE=%(relative_workspace)s
+export FETCH_WORKSPACE=%(remote_workspace)s
 export ROS_DISTRO=%(ros_distro)s
 echo source /opt/ros/%(ros_distro)s/setup.bash >> ~/.bashrc.d/40-ros-setup.sh
-echo source %(relative_workspace)s/devel/setup.bash >> ~/.bashrc.d/40-ros-setup.sh
+echo source %(remote_workspace)s/devel/setup.bash >> ~/.bashrc.d/40-ros-setup.sh
 echo '%(password)s' | sudo -S echo granting root priveleges for installation
 bash ~/initialize.sh
 """  # noqa
@@ -58,7 +58,7 @@ def main(args):
         "password": password,
         "user": args.user,
         "fullname": fullname,
-        "relative_workspace": args.relative_workspace,
+        "remote_workspace": args.remote_workspace,
         "ros_distro": os.getenv("ROS_DISTRO"),
     }
 
