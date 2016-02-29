@@ -10,7 +10,6 @@ import os
 import tempfile
 import subprocess
 import datetime
-import time
 
 from ..util import ssh, add_robot
 
@@ -34,8 +33,8 @@ topics = ["/robot_state",
           "/battery_state"]
 
 # All commands requiring sudo must be added in main
-commands = {"dpkg_fetch":"dpkg -l ros-indigo-fetch-*",
-            "dpkg_all":"dpkg -l",
+commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-indigo-fetch-*",
+            "dpkg_all":"COLUMNS=200 dpkg -l",
             "lsusb":"lsusb",
             "lspci":"lspci",
             "roswtf":rosbash + "roswtf",
@@ -62,12 +61,12 @@ def main(args):
 
     commands.update({"robot_log":sudostr + "cat /var/log/upstart/robot.log"})
 
-    print 'Running debug snapshot tool (this should take around 10 seconds).'
+    print 'Running debug snapshot tool.'
     dirpath = tempfile.mkdtemp()
 
     # Start bag recording
-    bag_start = time.time()
-    bag_process = ['rosbag', 'record', '-q', '-j', '-O', bagname] + topics
+    bag_process = ['rosbag', 'record', '-q', '--duration=10', '-j',
+                   '-O', bagname] + topics
     bag = subprocess.Popen(bag_process, cwd=dirpath, stdout=devnull)
 
     # Record version file
@@ -81,21 +80,6 @@ def main(args):
             password=args.fetch_password[-1])
 
     print 'Waiting for data gathering to complete'
-    while time.time() < bag_start + 10:
-         # Wait for a 10 second bag file
-        time.sleep(0.5)
-
-    # Kill all rosbag record children
-    # Note: Killing parent rosbag results in a failure to clean up
-    node_proc = subprocess.Popen("rosnode list", shell=True,
-                                 stdout=subprocess.PIPE)
-    output = node_proc.stdout.read()
-    node_proc.wait()
-    for nodename in output.split("\n"):
-        if (nodename.startswith('/record')):
-            subprocess.Popen(["rosnode", "kill", nodename],
-                             stdout=devnull,
-                             stderr=devnull)
 
     # Wait for the rosbag record parent process to exit cleanly
     bag.wait()
