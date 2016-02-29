@@ -13,10 +13,10 @@ This tool was written to help make it easier to develop code and
 switch between robots with ease. It works by inferring what robot
 you're working on from `$ROS_MASTER_URI` and automating common tasks
 such as account creation, code syncing, and running commands. It
-assumes that you always edit code in your ROS Workspace and then
-synchronize the robot with your workspace afterwards, so that you can
-run it. This keeps all code that you are developing on your computer
-in case someone takes it.
+assumes that you always edit code in your ROS Workspace and then push
+a copy of the workspace to the robot afterwards, so that you can run
+it. This keeps all code that you are developing on your computer in
+case someone takes the robot.
 
 ### Example Workflow
 
@@ -24,15 +24,15 @@ in case someone takes it.
 # Start working on freight 0 for the first time
 ufr 0
 fetch create-account --fullname "Not A. Robot"
-fetch sync --install-deps --build
+fetch push --install-deps --build
 fetch run "roslaunch my_awesome_package do_stuff.launch"
 # Edit code to fix a bug
-fetch sync --build "--pkg my_awesome_package"
+fetch push --build "--pkg my_awesome_package"
 fetch run "roslaunch my_awesome_package do_stuff.launch"
 # Switch over to freight 8, since someone kidnapped freight 0
 ufr 8
 fetch create-account --fullname "Not A. Robot"
-fetch sync --install-deps --build
+fetch push --install-deps --build
 fetch run "roslaunch my_awesome_package do_stuff.launch"
 ```
 
@@ -66,7 +66,11 @@ Some operations interact with a workspace, in this case take an
 optional `--workspace` argument.  If the a parameter is passed in that
 value is used. If not, the parameter defaults to `~/$ROS_DISTRO`. To
 set the default value, add the line `export
-FETCH_WORKSPACE=/path/to/my/workspace` to your .bashrc file.
+FETCH_WORKSPACE=/path/to/my/workspace` to your .bashrc file. By
+default, the remote workspace is assumed to match your local
+workspace. If not, you can use either the `--remote-workspace`
+argument or the `FETCH_REMOTE_WORKSPACE` environment variable to
+change it.
 
 ### User
 
@@ -111,7 +115,7 @@ special script that gets run during the account creation process. If
 you want to install software or run other commands every time you
 create an account, customize `initialize.sh`.
 
-### fetch sync
+### fetch push
 
 **WARNING:** Synchronize in this context means make the remote
 workspace like the current workspace. This means new files will be
@@ -122,33 +126,39 @@ To synchronize your `$workspace/src` directory with the matching
 directory on another robot:
 
 ```
-fetch sync
+fetch push
 ```
 
 To synchronize another workspace with a robot:
 
 ```
-fetch_sync --workspace ~/test_ws
+fetch push --workspace ~/test_ws
 ```
 
 To synchronize and then run `catkin_make` to build:
 
 ```
-fetch sync --build
+fetch push --build
 ```
 
 To synchronize and install all dependencies with rosdep:
 
 ```
-fetch sync --install-deps
+fetch push --install-deps
 ```
 
 To synchronize and then run `catkin_make --pkg follow_pick
+-DCMAKE_BUILD_TYPE=RELEASE` instead of `catkin_make --pkg follow_pick
 -DCMAKE_BUILD_TYPE=Debug` to build:
 
 ```
-fetch sync --build "--pkg follow_pick -DCMAKE_BUILD_TYPE=Debug"
+fetch push --no-debug --build "--pkg follow_pick -DCMAKE_BUILD_TYPE=RELEASE"
 ```
+
+### fetch pull
+
+Is just fetch push in reverse, so it pulls code from the remote
+workspace into the local workspace. It supports the same arguments
 
 ### fetch run
 
@@ -183,6 +193,33 @@ To lint a file:
 
 ```
 fetch lint FILE
+```
+
+### fetch workspace-status
+
+This command produces a table of the current workspace, including the
+git information so that you can communicate what code is checked out
+easily. Running:
+
+```
+fetch workspace-status
+```
+
+Produces:
+
+Name             | Branch       | SHA1         
+-----------------|--------------|--------------
+fetch_ros        | indigo-devel | 30d7794
+fetch_tools      | push         | 5bbb0e4-dirty
+some_random_code | None         | untracked
+
+### fetch debug-snapshot
+
+This command takes a debug snapshot of running robot, gathering
+information that can be useful in diagnosing robot problems:
+
+```
+fetch debug-snapshot
 ```
 
 Useful Aliases
