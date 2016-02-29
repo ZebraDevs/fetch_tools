@@ -68,7 +68,7 @@ def lint_directory(directory):
     cpp_files = []
     for root, _, filenames in os.walk(directory):
         for ending in cpp_endings:
-            for filename in fnmatch.filter(filenames, ending):
+            for filename in fnmatch.filter(filenames, "*"+ending):
                 cpp_files.append(os.path.join(root, filename))
     returncode = cpplint(cpp_files)
     print
@@ -81,7 +81,7 @@ def lint_directory(directory):
     return returncode
 
 
-cpp_endings = ["*.c", "*.cpp", "*.cc", "*.h", "*.hpp", "*.hh"]
+cpp_endings = [".c", ".cpp", ".cc", ".h", ".hpp", ".hh"]
 
 
 def cpplint(files):
