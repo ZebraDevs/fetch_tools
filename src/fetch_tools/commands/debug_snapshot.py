@@ -52,6 +52,11 @@ commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-indigo-fetch-*",
             "network_interfaces":"cat /etc/network/interfaces",
             "hosts":"cat /etc/hosts",
             "env":"env",
+            "roscore.conf":"cat /etc/init/roscore.conf",
+            "robot.conf":"cat /etc/init/robot.conf",
+            "sixad.conf":"cat /etc/init/sixad.conf",
+            "soundplay.conf":"cat /etc/init/soundplay.conf",
+            "joystick_monitor.conf":"cat /etc/init/joystick_monitor.conf",
            }
 
 
