@@ -24,13 +24,17 @@ ul () {
 }
 
 sf () {
-    if [[ $@ ]]; then
+    if [[ $@ && $FETCH_USER ]]; then
+        ssh $FETCH_USER@fetch$@
+    elif [[ $@ ]]; then
         ssh fetch$@
     fi;
 }
 
 sfr () {
-    if [[ $@ ]]; then
+    if [[ $@ && $FETCH_USER ]]; then
+        ssh $FETCH_USER@freight$@
+    elif [[ $@ ]]; then
         ssh freight$@
     fi;
 }
