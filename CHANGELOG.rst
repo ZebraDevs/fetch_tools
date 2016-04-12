@@ -2,8 +2,8 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.4 (2016-04-12)
+------------------
 * Added FETCH_USER to sf/sfr & additional usage notes
 * Updated readme to detail robothostname.local usage with fetch_tools and how to set ports with ul
 * Contributors: Alex Henning, Eric Relson
