@@ -60,6 +60,10 @@ defaults to the robot pointed at by `$ROS_MASTER_URI`. To set the
 default value, add the line `export FETCH_ROBOT=myrobot` to your
 .bashrc file.
 
+If the robot is not on the DNS (i.e. pinging the robot name does not
+work), you can add `.local` to the parameter, e.g. `fetch4.local`, and
+communication with the robot will work via zeroconf (avahi).
+
 ### Workspace
 
 Some operations interact with a workspace, in this case take an
@@ -242,6 +246,12 @@ ul     # Set ROS_MASTER_URI="http://localhost:11311"
 - `ufr` is short for use freight
 - `ul` is short for use localhost
 
+Note also that `ul` supports setting a custom port
+
+```
+ul 11312  # Set ROS_MASTER_URI="http://localhost:11312"
+```
+
 ### SSH
 
 There are two aliases for sshing into robots
@@ -251,3 +261,12 @@ sf 5   # SSH into fetch 5
 sfr 0  # SSH into freight0
 ```
 
+### Using .local with uf/ufr and sf/sfr
+
+The robot's number can simply be appended with `.local` to take advantage
+of zeroconf (avahi) without needing any DNS configuration.
+
+```
+uf 5.local   # Set ROS_MASTER_URI="http://fetch5.local:11311"
+sf 5.local   # SSH into fetch 5, without using DNS
+```
