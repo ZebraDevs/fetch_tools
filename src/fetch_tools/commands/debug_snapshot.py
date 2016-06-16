@@ -35,8 +35,8 @@ topics = ["/robot_state",
 # All commands requiring sudo must be added in main
 commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-indigo-fetch-*",
             "dpkg_all":"COLUMNS=200 dpkg -l",
-            "lsusb":"lsusb",
-            "lspci":"lspci",
+            "lsusb":"lsusb -v",
+            "lspci":"lspci -vv",
             "roswtf":rosbash + "roswtf",
             "rosnode_list":rosbash + "rosnode list",
             "rostopic_list":rosbash + "rostopic list",
@@ -57,6 +57,11 @@ commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-indigo-fetch-*",
             "sixad.conf":"cat /etc/init/sixad.conf",
             "soundplay.conf":"cat /etc/init/soundplay.conf",
             "joystick_monitor.conf":"cat /etc/init/joystick_monitor.conf",
+            "read_board_charger": rosbash + "rosrun fetch_drivers read_board 0x3f",
+            "read_board_mainboard": rosbash + "rosrun fetch_drivers read_board 0x00",
+            "read_board_wheel_left": rosbash + "rosrun fetch_drivers read_board 0x11",
+            "read_board_wheel_right": rosbash + "rosrun fetch_drivers read_board 0x12",
+            "top": "top -n 1 -b",
            }
 
 
