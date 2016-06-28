@@ -156,7 +156,7 @@ To synchronize and then run `catkin_make --pkg follow_pick
 -DCMAKE_BUILD_TYPE=Debug` to build:
 
 ```
-fetch push --no-debug --build "--pkg follow_pick -DCMAKE_BUILD_TYPE=RELEASE"
+fetch push --build "--pkg follow_pick -DCMAKE_BUILD_TYPE=RELEASE"
 ```
 
 ### fetch pull
