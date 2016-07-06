@@ -53,8 +53,8 @@ def main(args):
     if args.build is not None:
         for build in args.build:
             build = build if build is not None else ""
-            if not args.no_debug:
-                build += " -DCMAKE_BUILD_TYPE=Debug"
+            if args.build_type != "default":
+                build += " -DCMAKE_BUILD_TYPE="+args.build_type
             command = "source /opt/ros/" + os.getenv("ROS_DISTRO") + \
                       "/setup.bash && cd " + args.workspace + \
                       " && catkin_make " + build
@@ -71,7 +71,8 @@ def add_arguments(parser):
                         help="Install dependencies using rosdep")
     parser.add_argument("--build", nargs="?", action="append",
                         help="Build after syncing")
-    parser.add_argument("--no-debug", action="store_true",
-                        help="Don't build with `-DCMAKE_BUILD_TYPE=Debug`")
+    parser.add_argument("--build-type", action="store", default="default",
+                        choices=["Debug", "Release", "RelWithDebInfo", "MinSizeRel", "default"],
+                        help="Type of build to use `default`, `Debug`, `Release`, and `RelWithDebInfo`")
     parser.add_argument("--no-safety", action="store_true",
                         help="Don't prompt about overwriting the local workspace")
