@@ -20,7 +20,7 @@ help_text = "Create an account on a robot"
 create_user_script = """
 echo %(fetch_password)s | sudo -S adduser %(user)s --gecos '%(fullname)s,,,' --disabled-password &&
 echo '%(user)s:%(password)s' | sudo chpasswd &&
-sudo usermod -G adm,cdrom,sudo,dip,plugdev,lpadmin,sambashare %(user)s
+sudo usermod -G adm,audio,cdrom,sudo,dip,plugdev,lpadmin,sambashare %(user)s
 """  # noqa
 
 setup_user_script = """
