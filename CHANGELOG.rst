@@ -2,6 +2,13 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.2.0 (2018-07-11)
+------------------
+* updates ownership
+* Update create_account.py
+* Expand hardware info retrieval and add read_board
+* Contributors: Alex Henning, Michael Ferguson, Michael Hwang, Russell Toris
+
 0.1.4 (2016-04-12)
 ------------------
 * Added FETCH_USER to sf/sfr & additional usage notes
