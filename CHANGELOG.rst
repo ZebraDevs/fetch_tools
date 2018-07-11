@@ -2,6 +2,23 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.1.5 (2018-07-11)
+------------------
+* updates ownership
+* Merge pull request `#11 <https://github.com/fetchrobotics/fetch_tools/issues/11>`_ from fetchrobotics/rctoris-patch-1
+  Adds audio group to new users
+* Update create_account.py
+* Merge pull request `#10 <https://github.com/fetchrobotics/fetch_tools/issues/10>`_ from alexhenning/better-default-build
+  No longer defaults to debug builds
+* No longer defaults to debug builds
+  Defaulting to debug was a mistake, instead, this provides an option that
+  makes it easy to change the build type to debug (or anything else) with
+  tab completion.
+* Merge pull request `#9 <https://github.com/fetchrobotics/fetch_tools/issues/9>`_ from mehwang/more_hardware_info
+  Expand hardware info retrieval and add read_board to debug_snapshot
+* Expand hardware info retrieval and add read_board
+* Contributors: Alex Henning, Michael Ferguson, Michael Hwang, Russell Toris
+
 0.1.4 (2016-04-12)
 ------------------
 * Added FETCH_USER to sf/sfr & additional usage notes
