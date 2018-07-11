@@ -6,8 +6,9 @@
   developing on the robots. For help, run `fetch -h` and `fetch
   COMMAND -h`.</description>
 
-  <author email="ahenning@fetchrobotics.com">Alex Henning</author>
-  <maintainer email="ahenning@fetchrobotics.com">Alex Henning</maintainer>
+  <author>Alex Henning</author>
+  <maintainer email="rtoris@fetchrobotics.com">Russell Toris</maintainer>
+  <maintainer email="amoriarty@fetchrobotics.com">Alex Moriarty</maintainer>
 
   <license>BSD</license>
 
