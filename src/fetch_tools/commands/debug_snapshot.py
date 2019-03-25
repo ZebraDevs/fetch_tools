@@ -1,8 +1,8 @@
 """
 The snapshot command creates a zip file of relevant robot debug info.
 
-Copyright 2016 Fetch Robotics Inc.
-Author: Aaron Blasdel
+Copyright 2016-2018 Fetch Robotics Inc.
+Authors: Aaron Blasdel, Eric Relson
 """
 
 import shutil
@@ -24,7 +24,7 @@ fileroot = '_' + fileroot + '_'
 bagname = 'robot.bag'
 
 # all ros command must source setup.bash
-rosbash = 'source /opt/ros/indigo/setup.bash;'
+rosbash = 'source /opt/ros/melodic/setup.bash;'
 devnull = open(os.devnull, 'w+')
 
 topics = ["/robot_state",
@@ -33,7 +33,7 @@ topics = ["/robot_state",
           "/battery_state"]
 
 # All commands requiring sudo must be added in main
-commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-indigo-fetch-*",
+commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-melodic-fetch-*",
             "dpkg_all":"COLUMNS=200 dpkg -l",
             "lsusb":"lsusb -v",
             "lspci":"lspci -vv",
@@ -50,13 +50,12 @@ commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-indigo-fetch-*",
             "ifconfig":"ifconfig -a",
             "iwconfig":"iwconfig",
             "network_interfaces":"cat /etc/network/interfaces",
+            "netplan_full":"cat /etc/netplan/01-network-manager-all.yaml /etc/netplan/99-fetch-ethernet.yaml",
             "hosts":"cat /etc/hosts",
             "env":"env",
-            "roscore.conf":"cat /etc/init/roscore.conf",
-            "robot.conf":"cat /etc/init/robot.conf",
-            "sixad.conf":"cat /etc/init/sixad.conf",
-            "soundplay.conf":"cat /etc/init/soundplay.conf",
-            "joystick_monitor.conf":"cat /etc/init/joystick_monitor.conf",
+            "roscore.service":"cat /lib/systemd/system/roscore.service",
+            "robot.service":"cat /lib/systemd/system/robot.service",
+            "ps3joy.service":"cat /lib/systemd/system/ps3joy.service",
             "read_board_charger": rosbash + "rosrun fetch_drivers read_board 0x3f",
             "read_board_mainboard": rosbash + "rosrun fetch_drivers read_board 0x00",
             "read_board_wheel_left": rosbash + "rosrun fetch_drivers read_board 0x11",

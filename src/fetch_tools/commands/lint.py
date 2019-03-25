@@ -87,7 +87,7 @@ cpp_endings = [".c", ".cpp", ".cc", ".h", ".hpp", ".hh"]
 def cpplint(files):
     if files:
         proc = subprocess.Popen([
-            "/opt/ros/indigo/lib/roslint/cpplint",
+            "/opt/ros/melodic/lib/roslint/cpplint",
             "--counting=detailed",
             "--filter=+,-runtime/references,-runtime/threadsafe_fn",
         ] + files)
@@ -113,7 +113,7 @@ def pep8(files):
     ]
     if files:
         proc = subprocess.Popen([
-            "/opt/ros/indigo/lib/roslint/pep8",
+            "/opt/ros/melodic/lib/roslint/pep8",
             "--ignore=" + ",".join(acceptable),
             "--statistics",
             "--count"

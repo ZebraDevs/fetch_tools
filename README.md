@@ -42,7 +42,7 @@ Installation
 To install run, checkout the fetchrobotics/sandbox repo and run:
 
 ```
-sudo apt-get install ros-indigo-fetch-tools
+sudo apt-get install ros-melodic-fetch-tools
 ```
 
 Afterwards, restart your terminal or run `source $(rospack find
@@ -211,11 +211,11 @@ fetch workspace-status
 
 Produces:
 
-Name             | Branch       | SHA1         
------------------|--------------|--------------
-fetch_ros        | indigo-devel | 30d7794
-fetch_tools      | push         | 5bbb0e4-dirty
-some_random_code | None         | untracked
+Name             | Branch        | SHA1
+-----------------|---------------|--------------
+fetch_ros        | melodic-devel | 30d7794
+fetch_tools      | push          | 5bbb0e4-dirty
+some_random_code | None          | untracked
 
 ### fetch debug-snapshot
 
@@ -225,6 +225,10 @@ information that can be useful in diagnosing robot problems:
 ```
 fetch debug-snapshot
 ```
+
+**NOTE:** If this command is run on the robot itself, it may fail silently
+due to `ssh` prompts.  You can fix this by manually doing `ssh fetchXYZ`
+(to add the robot's own host key to its list of known hosts).
 
 Useful Aliases
 --------------
