@@ -2,6 +2,13 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Fixups for indigo->melodic; package format (`#13 <https://github.com/fetchrobotics/fetch_tools/issues/13>`_)
+  - Updates to debug_snapshot
+  - Warning about common failure case when using debug_snapshot
+* Contributors: Eric Relson
+
 0.2.0 (2018-07-11)
 ------------------
 * updates ownership
