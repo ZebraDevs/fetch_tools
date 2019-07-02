@@ -1,7 +1,7 @@
 """
 The snapshot command creates a zip file of relevant robot debug info.
 
-Copyright 2016-2018 Fetch Robotics Inc.
+Copyright 2016-2019 Fetch Robotics Inc.
 Authors: Aaron Blasdel, Eric Relson
 """
 
@@ -16,7 +16,7 @@ from ..util import ssh, add_robot
 name = "debug-snapshot"
 help_text = "Take a debug snapshot of a running robot"
 
-snapshot_version = "0.0.1"
+snapshot_version = "0.0.2"
 
 fileroot = "debug_snapshot"
 fileroot = '_' + fileroot + '_'
@@ -54,12 +54,21 @@ commands = {"dpkg_fetch":"COLUMNS=200 dpkg -l ros-melodic-fetch-*",
             "hosts":"cat /etc/hosts",
             "env":"env",
             "roscore.service":"cat /lib/systemd/system/roscore.service",
+            "roscore.service_status": "service roscore status",
             "robot.service":"cat /lib/systemd/system/robot.service",
+            "robot.service_status": "service robot status",
+            "robot.journalctl": "journalctl -u robot",
             "ps3joy.service":"cat /lib/systemd/system/ps3joy.service",
+            "ps3joy.service_status":"service ps3joy status",
+            "ps4joy.service":"cat /lib/systemd/system/ps4joy.service",
+            "ps4joy.service_status":"service ps4joy status",
             "read_board_charger": rosbash + "rosrun fetch_drivers read_board 0x3f",
             "read_board_mainboard": rosbash + "rosrun fetch_drivers read_board 0x00",
             "read_board_wheel_left": rosbash + "rosrun fetch_drivers read_board 0x11",
             "read_board_wheel_right": rosbash + "rosrun fetch_drivers read_board 0x12",
+            "read_board_gripper": rosbash + "rosrun fetch_drivers read_board 0x80",
+            "battery_state": rosbash + "rostopic echo -n 1 /battery_state",
+            "robot_state": rosbash + "rostopic echo -n 1 /robot_state",
             "top": "top -n 1 -b",
            }
 
@@ -68,7 +77,7 @@ def main(args):
     # all commands requiring sudo must prepend this
     sudostr = "echo %s | sudo -S " % args.fetch_password[-1]
 
-    commands.update({"robot_log":sudostr + "cat /var/log/upstart/robot.log"})
+    commands.update({"robot_log":sudostr + "cat /var/log/robot.log"})
 
     print 'Running debug snapshot tool.'
     dirpath = tempfile.mkdtemp()
