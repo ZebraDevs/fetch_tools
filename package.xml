@@ -7,8 +7,10 @@
   COMMAND -h`.</description>
 
   <author>Alex Henning</author>
+  <maintainer email="erelson@fetchrobotics.com">Eric Relson</maintainer>
+  <maintainer email="csaldanha@fetchrobotics.com">Carl Saldanha</maintainer>
   <maintainer email="rtoris@fetchrobotics.com">Russell Toris</maintainer>
-  <maintainer email="amoriarty@fetchrobotics.com">Alex Moriarty</maintainer>
+  <maintainer email="opensource@fetchrobotics.com">Fetch Robotics Open Source Team</maintainer>
 
   <license>BSD</license>
 
