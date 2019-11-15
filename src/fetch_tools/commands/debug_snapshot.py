@@ -79,7 +79,7 @@ def main(args):
     # all commands requiring sudo must prepend this
     sudostr = "echo %s | sudo -S " % args.fetch_password[-1]
 
-    commands.update({"robot_log":sudostr + "cat /var/log/robot.log"})
+    commands.update({"robot_log":sudostr + "cat /var/log/ros/robot.log"})
 
     print('Running debug snapshot tool.')
     dirpath = tempfile.mkdtemp()
