@@ -18,12 +18,12 @@ help_text = "Pull the robots workspace onto the current workspace, losing any di
 
 
 def main(args):
-    print "Pulling %s@%s:%s/src to %s/src " % (
+    print("Pulling %s@%s:%s/src to %s/src " % (
         args.user, args.robot, args.remote_workspace, args.workspace,
-    )
+    ))
 
-    if not args.no_safety and raw_input("Risk losing local workspace (y/n): ") not in ["y", "yes"]:
-        print "Giving up, better luck next time."
+    if not args.no_safety and input("Risk losing local workspace (y/n): ") not in ["y", "yes"]:
+        print("Giving up, better luck next time.")
         return
 
     # Synchronize the workspaces
@@ -39,7 +39,7 @@ def main(args):
     )
     proc.wait()
     if proc.returncode != 0:
-        print "ERROR: Syncing failed"
+        print("ERROR: Syncing failed")
         sys.exit(-1)
 
     # Use rosdep to install all dependencies
@@ -59,7 +59,7 @@ def main(args):
                       "/setup.bash && cd " + args.workspace + \
                       " && catkin_make " + build
             if run(command) != 0:
-                print "ERROR: Build failed"
+                print("ERROR: Build failed")
                 sys.exit(-1)
 
 

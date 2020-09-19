@@ -46,8 +46,7 @@ def RobotCompleter(prefix, **kwargs):
         return options
     return (prefix + str(i) for i in range(10))
 
-users = subprocess.check_output(["awk", "-F:", "{ print $1}", "/etc/passwd"]) \
-                  .split()
+users = subprocess.check_output(["awk", "-F:", "{ print $1}", "/etc/passwd"], encoding='utf-8').split()
 
 
 def add_user(parser):

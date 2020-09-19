@@ -16,14 +16,16 @@ help_text = "Print the status of the current workspace"
 
 
 def main(args):
-    print "Status of %s: " % (args.workspace+"/src")
+    print("Status of %s: " % (args.workspace+"/src"))
     data = []
     for name in [i for i in os.listdir(args.workspace+"/src")
                  if os.path.isdir(args.workspace+"/src/"+i)]:
         dir = args.workspace+"/src/"+name
         if os.path.isdir(dir+"/.git"):
-            branch = subprocess.check_output("cd %s && git rev-parse --abbrev-ref HEAD" % dir, shell=True).strip()
-            sha = subprocess.check_output("cd %s && git describe --always --dirty" % dir, shell=True).strip()
+            branch = subprocess.check_output("cd %s && git rev-parse --abbrev-ref HEAD" % dir,
+                                             shell=True, encoding='utf-8').strip()
+            sha = subprocess.check_output("cd %s && git describe --always --dirty" % dir,
+                                          shell=True, encoding='utf-8').strip()
             data.append((name, branch, sha))
         else:
             data.append((name, "None", "untracked"))
@@ -33,14 +35,14 @@ def main(args):
     branch_len = max([len(branch) for _, branch, _ in data])
     sha_len = max([len(sha) for _, _, sha in data])
 
-    print "%s%s | %s%s | %s%s" % ("Name", " "*(name_len-len("name")),
+    print("%s%s | %s%s | %s%s" % ("Name", " "*(name_len-len("name")),
                                   "Branch", " "*(branch_len-len("branch")),
-                                  "SHA1", " "*(sha_len-len("sha1")))
-    print "%s|%s|%s" % ("-"*(1+name_len), "-"*(2+branch_len), "-"*(1+sha_len))
+                                  "SHA1", " "*(sha_len-len("sha1"))))
+    print("%s|%s|%s" % ("-"*(1+name_len), "-"*(2+branch_len), "-"*(1+sha_len)))
     for name, branch, sha in data:
-        print "%s%s | %s%s | %s%s" % (name, " "*(name_len-len(name)),
+        print("%s%s | %s%s | %s%s" % (name, " "*(name_len-len(name)),
                                       branch, " "*(branch_len-len(branch)),
-                                      sha, " "*(sha_len-len(sha)),)
+                                      sha, " "*(sha_len-len(sha)),))
 
 def add_arguments(parser):
     add_workspace(parser)

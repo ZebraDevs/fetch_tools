@@ -17,9 +17,9 @@ help_text = "Push the workspace to the robot"
 
 
 def main(args):
-    print "Pushing %s/src to %s@%s:%s/src" % (
+    print("Pushing %s/src to %s@%s:%s/src" % (
         args.workspace, args.user, args.robot, args.remote_workspace
-    )
+    ))
 
     # Synchronize the workspaces
     proc = subprocess.Popen(
@@ -34,7 +34,7 @@ def main(args):
     )
     proc.wait()
     if proc.returncode != 0:
-        print "ERROR: Syncing failed"
+        print("ERROR: Syncing failed")
         sys.exit(-1)
 
     # Use rosdep to install all dependencies
@@ -55,7 +55,7 @@ def main(args):
                       "/setup.bash && cd " + args.remote_workspace + \
                       " && catkin_make " + build
             if ssh(args.user, args.robot, command) != 0:
-                print "ERROR: Build failed"
+                print("ERROR: Build failed")
                 sys.exit(-1)
 
 

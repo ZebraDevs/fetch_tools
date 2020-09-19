@@ -42,7 +42,7 @@ Installation
 To install run, checkout the fetchrobotics/sandbox repo and run:
 
 ```
-sudo apt-get install ros-melodic-fetch-tools
+sudo apt-get install ros-noetic-fetch-tools
 ```
 
 Afterwards, restart your terminal or run `source $(rospack find

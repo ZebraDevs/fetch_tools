@@ -21,22 +21,22 @@ def main(args):
     # TODO(enhancement): Allow python to be turned off
 
     if os.path.isfile(args.package):
-        print "Linting file %s" % (args.package)
-        print "-------------" + ("-" * len(args.package)) + "\n"
+        print("Linting file %s" % (args.package))
+        print("-------------" + ("-" * len(args.package)) + "\n")
         for ending in cpp_endings:
             if args.package.endswith(ending):
                 sys.exit(cpplint([args.package]))
         if args.package.endswith(".py"):
             sys.exit(pep8([args.package]))
-        print "ERROR: can't lint file"
+        print("ERROR: can't lint file")
         sys.exit(1)
     elif os.path.isdir(args.package):
-        print "Linting directory %s" % (args.package)
-        print "------------------" + ("-" * len(args.package)) + "\n"
+        print("Linting directory %s" % (args.package))
+        print("------------------" + ("-" * len(args.package)) + "\n")
         sys.exit(lint_directory(args.package))
     else:
-        print "Linting package %s" % (args.package)
-        print "----------------" + ("-" * len(args.package)) + "\n"
+        print("Linting package %s" % (args.package))
+        print("----------------" + ("-" * len(args.package)) + "\n")
         sys.exit(lint_package(args.package))
 
 
@@ -55,11 +55,11 @@ def lint_package(package):
                              "-W2", "--explain"])
     proc.wait()
     if proc.returncode != 0:
-        print "WARNING: Catkin lint failed"
+        print("WARNING: Catkin lint failed")
     returncode = proc.returncode
-    print
+    print()
 
-    package_directory = subprocess.check_output(["rospack", "find", package]) \
+    package_directory = subprocess.check_output(["rospack", "find", package], encoding='utf-8') \
                                   .strip()
     return merge(lint_directory(package_directory), returncode)
 
@@ -71,7 +71,7 @@ def lint_directory(directory):
             for filename in fnmatch.filter(filenames, "*"+ending):
                 cpp_files.append(os.path.join(root, filename))
     returncode = cpplint(cpp_files)
-    print
+    print()
 
     py_files = []
     for root, _, filenames in os.walk(directory):
@@ -87,13 +87,13 @@ cpp_endings = [".c", ".cpp", ".cc", ".h", ".hpp", ".hh"]
 def cpplint(files):
     if files:
         proc = subprocess.Popen([
-            "/opt/ros/melodic/lib/roslint/cpplint",
+            "/opt/ros/noetic/lib/roslint/cpplint",
             "--counting=detailed",
             "--filter=+,-runtime/references,-runtime/threadsafe_fn",
         ] + files)
         proc.wait()
         if proc.returncode != 0:
-            print "WARNING: C++ lint failed"
+            print("WARNING: C++ lint failed")
         return proc.returncode
     return 0
 
@@ -113,13 +113,13 @@ def pep8(files):
     ]
     if files:
         proc = subprocess.Popen([
-            "/opt/ros/melodic/lib/roslint/pep8",
+            "/opt/ros/noetic/lib/roslint/pep8",
             "--ignore=" + ",".join(acceptable),
             "--statistics",
             "--count"
         ] + files)
         proc.wait()
         if proc.returncode != 0:
-            print "WARNING: Python lint failed"
+            print("WARNING: Python lint failed")
         return proc.returncode
     return 0

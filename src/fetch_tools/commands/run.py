@@ -14,10 +14,10 @@ help_text = "Run a command on the robot"
 
 
 def main(args):
-    print "%s@%s$ %s" % (args.user, args.robot, args.command)
+    print("%s@%s$ %s" % (args.user, args.robot, args.command))
     if ssh(args.user, args.robot,
            "source "+args.remote_workspace+"/devel/setup.bash && "+args.command) != 0:
-        print "ERROR: Command crashed"
+        print("ERROR: Command crashed")
         sys.exit(-1)
 
 

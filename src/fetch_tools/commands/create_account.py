@@ -35,7 +35,7 @@ bash ~/initialize.sh
 
 def main(args):
     fullname = args.fullname if args.fullname is not None else args.user
-    print "Creating account %s@%s for %s" % (args.user, args.robot, fullname)
+    print("Creating account %s@%s for %s" % (args.user, args.robot, fullname))
 
     # Get fetch password for setup
     fetch_password = args.fetch_password[-1]
@@ -48,7 +48,7 @@ def main(args):
         check_password = "Not the same"
         while password != check_password:
             if password is not None:
-                print "Passwords don't match, please try again."
+                print("Passwords don't match, please try again.")
             password = getpass(prompt="Password: ")
             check_password = getpass(prompt="Password (confirm): ")
 
@@ -71,12 +71,12 @@ def main(args):
                             env={"SSHPASS": fetch_password})
     proc.wait()
     if proc.returncode != 0:
-        print "ERROR: Could not add robot to known hosts"
+        print("ERROR: Could not add robot to known hosts")
         sys.exit(-1)
 
     # Create the user
     if ssh("fetch", args.robot, create_user_script % env, fetch_password) != 0:
-        print "ERROR: Creating user failed"
+        print("ERROR: Creating user failed")
         sys.exit(-1)
 
     # Copy SSH ID
@@ -88,10 +88,10 @@ def main(args):
                             env=dd)
     proc.wait()
     if proc.returncode != 0:
-        print "WARNING: Copying ID failed, continuing anyways"
-        print "To manually copy an ID, first create one " \
+        print("WARNING: Copying ID failed, continuing anyways")
+        print("To manually copy an ID, first create one " \
             "https://help.github.com/articles/generating-ssh-keys/ " \
-            "and then run `ssh-copy-id " + args.user + "@" + args.robot + "`"
+            "and then run `ssh-copy-id " + args.user + "@" + args.robot + "`")
 
     # Copy over skeleton setup
     skeleton = args.skeleton
@@ -100,9 +100,7 @@ def main(args):
         if os.path.isdir(user_skeleton):
             skeleton = user_skeleton
         else:
-            package_dir = subprocess.check_output(["rospack",
-                                                   "find",
-                                                   "fetch_tools"]).strip()
+            package_dir = subprocess.check_output(["rospack", "find", "fetch_tools"], encoding='utf-8').strip()
             skeleton = os.path.join(os.path.dirname(__file__),
                                     package_dir + "/resources/robot_skeleton")
     proc = subprocess.Popen(["scp", "-r", ".", args.user + "@" +
@@ -110,12 +108,12 @@ def main(args):
                             cwd=skeleton)
     proc.wait()
     if proc.returncode != 0:
-        print "ERROR: Could not copy skeleton directory"
+        print("ERROR: Could not copy skeleton directory")
         sys.exit(-1)
 
     # Run setup script
     if ssh(args.user, args.robot, setup_user_script % env) != 0:
-        print "ERRROR: Setting up user failed"
+        print("ERRROR: Setting up user failed")
         sys.exit(-1)
 
 

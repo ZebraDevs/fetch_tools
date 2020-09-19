@@ -1,7 +1,7 @@
 """
 The snapshot command creates a zip file of relevant robot debug info.
 
-Copyright 2016-2019 Fetch Robotics Inc.
+Copyright 2016-2020 Fetch Robotics Inc.
 Authors: Aaron Blasdel, Eric Relson
 """
 
@@ -24,7 +24,7 @@ fileroot = '_' + fileroot + '_'
 bagname = 'robot.bag'
 
 # all ros command must source setup.bash
-rosbash = 'source /opt/ros/melodic/setup.bash;'
+rosbash = 'source /opt/ros/noetic/setup.bash;'
 devnull = open(os.devnull, 'w+')
 
 topics = ["/robot_state",
@@ -33,8 +33,8 @@ topics = ["/robot_state",
           "/battery_state"]
 
 # All commands requiring sudo must be added in main
-commands = {"dpkg_fetch": "COLUMNS=200 dpkg -l ros-melodic-fetch-*",
-            "dpkg_ros": "COLUMNS=200 dpkg -l ros-melodic-*",
+commands = {"dpkg_fetch": "COLUMNS=200 dpkg -l ros-noetic-fetch-*",
+            "dpkg_ros": "COLUMNS=200 dpkg -l ros-noetic-*",
             "dpkg_all": "COLUMNS=200 dpkg -l",
             "lsusb": "lsusb -v",
             "lspci": "lspci -vv",
@@ -94,7 +94,7 @@ def main(args):
         version_file.write(snapshot_version)
 
     # Execute remote commands on robot
-    for key, value in commands.iteritems():
+    for key, value in commands.items():
         print("Creating '%s.txt'." % key)
         ssh('fetch', args.robot, value, fname=dirpath + '/' + key,
             password=args.fetch_password[-1])
