@@ -2,6 +2,11 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Update dependencies from py2 to py3
+* Contributors: Eric Relson
+
 0.3.0 (2020-09-20)
 ------------------
 * Convert to python3 + ROS noetic
