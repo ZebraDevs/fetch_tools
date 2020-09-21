@@ -22,8 +22,8 @@
 
   <build_depend>python-rospkg</build_depend>
 
-  <exec_depend>python-argcomplete</exec_depend>
-  <exec_depend>python-catkin-lint</exec_depend>
+  <exec_depend>python3-argcomplete</exec_depend>
+  <exec_depend>python3-catkin-lint</exec_depend>
   <exec_depend>roslint</exec_depend>
   <exec_depend>sshpass</exec_depend>
 
