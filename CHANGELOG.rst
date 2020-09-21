@@ -2,8 +2,8 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.1 (2020-09-20)
+------------------
 * Update dependencies from py2 to py3
 * Contributors: Eric Relson
 
