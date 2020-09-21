@@ -2,8 +2,8 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.0 (2020-09-20)
+------------------
 * Convert to python3 + ROS noetic
 * Text improvements to debug_snapshot tool
 * Several 18.04 fixes to debug_snapshot tool
