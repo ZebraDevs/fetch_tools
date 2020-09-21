@@ -3,8 +3,8 @@ Fetch Tools
 
 This package contains the `fetch` utility to make development
 easier. For full details of command usage and arguments, run `fetch
--h` and `fetch COMMAND -h`. Below summarizes installation and common
-usage.
+-h` and `fetch COMMAND -h`. It also adds useful aliases for connecting
+to robots. Below summarizes installation and common usage.
 
 Intended Workflow
 -----------------

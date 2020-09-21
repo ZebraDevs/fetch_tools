@@ -83,6 +83,7 @@ def main(args):
 
     print('Running debug snapshot tool.')
     dirpath = tempfile.mkdtemp()
+    print('... storing temporary files in: {0}'.format(dirpath))
 
     # Start bag recording
     bag_process = ['rosbag', 'record', '-q', '--duration=10', '-j',
@@ -108,7 +109,7 @@ def main(args):
     timestr = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     filename = args.robot + fileroot + timestr + '.zip'
 
-    print('Data gathering complete creating %s' % filename)
+    print('Data gathering complete. Creating %s' % filename)
     proc = subprocess.Popen(["zip", "-r", filename, dirpath],
                             stdout=devnull,
                             stderr=devnull)
@@ -118,9 +119,9 @@ def main(args):
     shutil.rmtree(dirpath)
 
     if proc.returncode == 0:
-        print("Created %s" % filename)
+        print("\nCreated %s which you can send to Fetch support" % filename)
     else:
-        print("ERROR: failed to zip directory: %s" % dirpath)
+        print("\nERROR: failed to zip directory: %s" % dirpath)
 
 def add_arguments(parser):
     parser.add_argument(
