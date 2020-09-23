@@ -20,7 +20,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <build_depend>python-rospkg</build_depend>
+  <build_depend>python3-rospkg</build_depend>
 
   <exec_depend>python3-argcomplete</exec_depend>
   <exec_depend>python3-catkin-lint</exec_depend>
