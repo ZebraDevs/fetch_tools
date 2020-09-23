@@ -2,8 +2,8 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.2 (2020-09-23)
+------------------
 * Fix build dep that was missed for python2->3
 * Contributors: Eric Relson
 
