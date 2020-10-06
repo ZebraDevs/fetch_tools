@@ -34,7 +34,7 @@ Changelog for package fetch_tools
 
 0.1.2 (2016-02-29)
 ------------------
-*  Added three commands:
+* Added three commands:
   - `fetch debug-snapshot`
   - `fetch pull`
   - `fetch workspace-status`
