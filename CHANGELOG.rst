@@ -2,6 +2,11 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Several 18.04 fixes/additions to debug_snapshot tool (`#14 <https://github.com/fetchrobotics/fetch_tools/issues/14>`_)
+* Contributors: Alex Moriarty, Eric Relson, Nick Walker, Russell Toris
+
 0.2.1 (2019-03-26)
 ------------------
 * Fixups for indigo->melodic; package format (`#13 <https://github.com/fetchrobotics/fetch_tools/issues/13>`_)
