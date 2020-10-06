@@ -2,8 +2,8 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.2 (2020-10-05)
+------------------
 * Several 18.04 fixes/additions to debug_snapshot tool (`#14 <https://github.com/fetchrobotics/fetch_tools/issues/14>`_)
 * Contributors: Alex Moriarty, Eric Relson, Nick Walker, Russell Toris
 
