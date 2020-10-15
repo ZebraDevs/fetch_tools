@@ -1,4 +1,4 @@
-eval "$(register-python-argcomplete fetch)"
+eval "$(register-python-argcomplete3 fetch)"
 
 uf () {
     if [[ $@ ]]; then
