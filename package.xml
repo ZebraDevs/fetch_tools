@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>fetch_tools</name>
-  <version>0.3.2</version>
+  <version>0.3.3</version>
   <description>Commands for performing common operations when
   developing on the robots. For help, run `fetch -h` and `fetch
   COMMAND -h`.</description>

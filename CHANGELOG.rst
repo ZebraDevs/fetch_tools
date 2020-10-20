@@ -2,8 +2,8 @@
 Changelog for package fetch_tools
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.3.3 (2020-10-20)
+------------------
 * Fix argcomplete hook command for python3
 * Contributors: Eric Relson
 
