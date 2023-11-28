@@ -38,3 +38,19 @@ sfr () {
         ssh freight$@
     fi;
 }
+
+kf () {
+    if [[ $@ && $FETCH_USER ]]; then
+        ssh-copy-id $FETCH_USER@fetch$@
+    elif [[ $@ ]]; then
+        ssh-copy-id fetch$@
+    fi;
+}
+
+kfr () {
+    if [[ $@ && $FETCH_USER ]]; then
+        ssh-copy-id $FETCH_USER@freight$@
+    elif [[ $@ ]]; then
+        ssh-copy-id freight$@
+    fi;
+}
