@@ -265,10 +265,18 @@ sf 5   # SSH into fetch 5
 sfr 0  # SSH into freight0
 ```
 
+You can also use aliases to do `ssh-copy-id` for key setup with robots
+
+```
+kf 1104
+kfr 1234
+```
+
 ### Using .local with uf/ufr and sf/sfr
 
-The robot's number can simply be appended with `.local` to take advantage
-of zeroconf (avahi) without needing any DNS configuration.
+If your network does not provide DNS for your robots, often the robot's number
+can simply be appended with `.local` to take advantage of zeroconf (avahi)
+without needing any DNS configuration.
 
 ```
 uf 5.local   # Set ROS_MASTER_URI="http://fetch5.local:11311"
